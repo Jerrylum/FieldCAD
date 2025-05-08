@@ -1,0 +1,22 @@
+[BASIC]
+# Use camelCase naming style
+method-naming-style=camelCase
+function-naming-style=camelCase
+variable-naming-style=camelCase
+argument-naming-style=camelCase
+attr-naming-style=camelCase
+
+# Allow single-letter variable names (like i, j, k)
+good-names=i,j,k,ex,Run,_,id
+
+[FORMAT]
+# Maximum line length
+max-line-length=200
+
+[MESSAGES CONTROL]
+# Disable specific warnings that might conflict with camelCase style
+disable=C0103,  # invalid-name (we're using our own naming convention)
+        C0111,  # missing-docstring
+        E0611,  # no-name-in-module
+        C0116,  # missing-function-docstring
+        E0402   # relative-beyond-top-level

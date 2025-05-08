@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"addin",
+	"author":	"Jerry Lum",
+	"description":	{
+		"":	""
+	},
+	"version":	"0.0.0",
+	"runOnStartup":	true,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true,
+	"iconFilename":	"AddInIcon.png"
+}

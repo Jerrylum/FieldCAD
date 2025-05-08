@@ -30,9 +30,9 @@ FIELD_SIZE_IN = 140.41  # in inches
 FIELD_HALF_SIZE_IN = 70.205  # in inches
 
 local_handlers = []
-previous_x_value: str = "0"
-previous_y_value: str = "0"
-previous_z_value: str = "0"
+previous_x_value: str = ""
+previous_y_value: str = ""
+previous_z_value: str = ""
 previous_copy_value: bool = True
 previous_use_center_origin: bool = True
 
@@ -47,15 +47,6 @@ def start():
     control = panel.controls.addCommand(cmd_def)
     control.isPromoted = IS_PROMOTED
 
-    global previous_x_value
-    global previous_y_value
-    global previous_z_value
-
-    default_unit = futil.get_default_unit(app.activeProduct)
-    previous_x_value = f"0 {default_unit}"
-    previous_y_value = f"0 {default_unit}"
-    previous_z_value = f"0 {default_unit}"
-
 
 def stop():
     command_definition = ui.commandDefinitions.itemById(CMD_ID)
@@ -65,6 +56,16 @@ def stop():
 
 def command_created(args: adsk.core.CommandCreatedEventArgs):
     futil.log(f"{CMD_NAME} Command Created Event")
+
+    global previous_x_value
+    global previous_y_value
+    global previous_z_value
+
+    if previous_x_value == "" and previous_y_value == "" and previous_z_value == "":
+        default_unit = futil.get_default_unit(app.activeProduct)
+        previous_x_value = f"0 {default_unit}"
+        previous_y_value = f"0 {default_unit}"
+        previous_z_value = f"0 {default_unit}"
 
     inputs = args.command.commandInputs
 

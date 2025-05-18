@@ -1,6 +1,6 @@
+from typing import Optional
 import adsk.core
 import adsk.fusion
-from typing import Optional
 from ...lib import fusionAddInUtils as futil
 from ...lib.competition import V5RC_PushBack
 from ...lib.competition import V5RC_HighStakes
@@ -17,7 +17,7 @@ def get_all_v5rc_game_object_prefixes() -> list[str]:
     ]
 
 
-def get_V5RC_field(product: adsk.core.Product) -> Optional[adsk.fusion.Occurrence]:
+def get_v5rc_field(product: adsk.core.Product) -> Optional[adsk.fusion.Occurrence]:
     field_occurrence = None
 
     for occurrence in futil.get_all_occurrences(product):

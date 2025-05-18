@@ -25,8 +25,6 @@ GAME_OBJECT_PREFIXES = [
     *VIQRC.get_all_viqrc_game_object_prefixes(),
 ]
 
-FIELD_PREFIX = "276-7596-000_With Tiles"
-
 # Field size (V5 field is 140.41 inches square, or about 356.64 cm)
 FIELD_SIZE_IN = 140.41  # in inches
 FIELD_HALF_SIZE_IN = 70.205  # in inches
@@ -89,6 +87,10 @@ def command_created(args: adsk.core.CommandCreatedEventArgs):
         "Toggle between field center (ON) and bottom left corner (OFF) as the origin point for coordinates"
     )
 
+    if not V5RC.is_likely_v5rc_field(app.activeProduct):
+        origin_input.isEnabled = False
+        origin_input.value = True
+
     # Create value inputs for coordinates
     inputs.addStringValueInput("x_coord", "X", previous_x_value)
     inputs.addStringValueInput("y_coord", "Y", previous_y_value)
@@ -124,7 +126,8 @@ def command_execute(args: adsk.core.CommandEventArgs):
 
         # Save the previous value
         global previous_use_center_origin
-        previous_use_center_origin = use_center_origin
+        if V5RC.is_likely_v5rc_field(app.activeProduct):
+            previous_use_center_origin = use_center_origin
 
         # Get x, y, z coordinates
         x_input = adsk.core.StringValueCommandInput.cast(inputs.itemById("x_coord"))
@@ -165,7 +168,10 @@ def command_execute(args: adsk.core.CommandEventArgs):
         previous_copy_value = should_copy
 
         # Find the field occurrence
-        field_occurrence = V5RC.get_V5RC_field(app.activeProduct)
+        if V5RC.is_likely_v5rc_field(app.activeProduct):
+            field_occurrence = V5RC.get_v5rc_field(app.activeProduct)
+        else:
+            field_occurrence = VIQRC.get_viqrc_field(app.activeProduct)
 
         if field_occurrence is None:
             raise ValueError("No field occurrence found")

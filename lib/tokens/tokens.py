@@ -14,6 +14,7 @@ class UnitOfLength(float, Enum):
     Inch = 2.54 * Centimeter
     Foot = 12 * Inch
     Tile = 23.576 * Inch  # 59.884 cm
+    IQTile = 12 * Inch  # 30.48 cm
 
     @staticmethod
     def from_string(s: str) -> "UnitOfLength":
@@ -23,12 +24,14 @@ class UnitOfLength(float, Enum):
             return UnitOfLength.Millimeter
         if s == "m":
             return UnitOfLength.Meter
-        if s in ["in", "inch"]:
+        if s in ("in", "inch"):
             return UnitOfLength.Inch
-        if s in ["ft", "feet", "foot"]:
+        if s in ("ft", "feet", "foot"):
             return UnitOfLength.Foot
-        if s in ["t", "tile"]:
+        if s in ("t", "tile"):
             return UnitOfLength.Tile
+        if s in ("iqt", "iqtile"):
+            return UnitOfLength.IQTile
         raise ValueError(f"Invalid unit of length: {s}")
 
 
@@ -540,14 +543,17 @@ class NumberUOL(NumberWithUnit[UnitOfLength]):
         elif unit_text == "m":
             unit = UnitOfLength.Meter
             buffer.commit()
-        elif unit_text == "in" or unit_text == "inch":
+        elif unit_text in ("in", "inch"):
             unit = UnitOfLength.Inch
             buffer.commit()
-        elif unit_text == "ft" or unit_text == "feet" or unit_text == "foot":
+        elif unit_text in ("ft", "feet", "foot"):
             unit = UnitOfLength.Foot
             buffer.commit()
-        elif unit_text == "t" or unit_text == "tile":
+        elif unit_text in ("t", "tile"):
             unit = UnitOfLength.Tile
+            buffer.commit()
+        elif unit_text in ("iqt", "iqtile"):
+            unit = UnitOfLength.IQTile
             buffer.commit()
         elif unit_text == "":
             buffer.commit()

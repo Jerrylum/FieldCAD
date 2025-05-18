@@ -3,6 +3,7 @@ import adsk.core
 import adsk.fusion
 from ...commands.panel import get_panel_in_render_workspace
 from ...lib import fusionAddInUtils as futil
+from ...lib.competition import V5RC
 from ... import config
 
 app = adsk.core.Application.get()
@@ -45,17 +46,10 @@ def command_created(args: adsk.core.CommandCreatedEventArgs):
     cmd = args.command
     inputs = cmd.commandInputs
 
-    # Check if field tiles are found to determine default value
     default_extent = 192  # VEX IQ field
 
-    # Get the active design
-    product = app.activeProduct
-    design = adsk.fusion.Design.cast(product)
-    if design:
-        #  check if design.rootComponent.boundingBox with > 3000mm in any direction
-        bounding_box = design.rootComponent.boundingBox
-        if bounding_box.maxPoint.x - bounding_box.minPoint.x > 300:
-            default_extent = 369  # VEX V5 field
+    if V5RC.is_likely_v5rc_field(app.activeProduct):
+        default_extent = 369  # VEX V5 field
 
     # Create extent input
     extent_input = inputs.addValueInput(

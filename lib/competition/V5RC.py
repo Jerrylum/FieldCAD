@@ -26,3 +26,13 @@ def get_V5RC_field(product: adsk.core.Product) -> Optional[adsk.fusion.Occurrenc
             break
 
     return field_occurrence
+
+
+def is_likely_v5rc_field(product: adsk.core.Product) -> bool:
+    design = adsk.fusion.Design.cast(product)
+    if design:
+        bounding_box = design.rootComponent.boundingBox
+        # check if bounding box is greater than 300mm
+        if bounding_box.maxPoint.x - bounding_box.minPoint.x > 300:
+            return True  # VEX V5 field
+    return False  # VEX IQ field

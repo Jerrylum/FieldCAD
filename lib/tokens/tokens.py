@@ -13,7 +13,7 @@ class UnitOfLength(float, Enum):
     Meter = 100 * Centimeter  # SI base unit
     Inch = 2.54 * Centimeter
     Foot = 12 * Inch
-    Tile = 23.576 * Inch  # 59.884 mm
+    Tile = 23.576 * Inch  # 59.884 cm
 
     @staticmethod
     def from_string(s: str) -> "UnitOfLength":

@@ -86,7 +86,7 @@ def command_created(args: adsk.core.CommandCreatedEventArgs):
     inputs.addStringValueInput("z_coord", "Z", previous_z_value)
 
     # Create boolean input for copy
-    inputs.addBoolValueInput("copy_object", "Copy", previous_copy_value, "", True)
+    inputs.addBoolValueInput("copy_object", "Copy", True, "", previous_copy_value)
 
     # Connect to the events
     futil.add_handler(args.command.execute, command_execute, local_handlers=local_handlers)

@@ -33,6 +33,6 @@ def is_likely_v5rc_field(product: adsk.core.Product) -> bool:
     if design:
         bounding_box = design.rootComponent.boundingBox
         # check if bounding box is greater than 300mm
-        if bounding_box.maxPoint.x - bounding_box.minPoint.x > 300:
+        if bounding_box.maxPoint.x - bounding_box.minPoint.x > 360:
             return True  # VEX V5 field
     return False  # VEX IQ field

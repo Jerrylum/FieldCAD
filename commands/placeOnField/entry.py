@@ -6,6 +6,7 @@ from ...commands.panel import get_panel_in_design_workspace
 from ...lib import fusionAddInUtils as futil
 from ... import config
 from ...lib.competition import V5RC
+from ...lib.competition import VIQRC
 from ...lib.tokens.tokens import CodePointBuffer, NumberUOL, UnitConverter, UnitOfLength, Computation
 
 app = adsk.core.Application.get()
@@ -19,11 +20,12 @@ IS_PROMOTED = True
 ICON_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "")
 
 # List of game object name prefixes
-GAME_OBJECT_PREFIXES = V5RC.get_all_v5rc_game_object_prefixes()
+GAME_OBJECT_PREFIXES = [
+    *V5RC.get_all_v5rc_game_object_prefixes(),
+    *VIQRC.get_all_viqrc_game_object_prefixes(),
+]
 
 FIELD_PREFIX = "276-7596-000_With Tiles"
-
-TILE_HEIGHT = 1.6003  # in cm
 
 # Field size (V5 field is 140.41 inches square, or about 356.64 cm)
 FIELD_SIZE_IN = 140.41  # in inches
@@ -35,6 +37,13 @@ previous_y_value: str = ""
 previous_z_value: str = ""
 previous_copy_value: bool = True
 previous_use_center_origin: bool = True
+
+
+def get_tile_height():
+    if V5RC.is_likely_v5rc_field(app.activeProduct):
+        return 1.6003  # VEX V5 field, in cm
+    else:
+        return 1.25  # VEX IQ field, in cm
 
 
 def start():
@@ -166,7 +175,7 @@ def command_execute(args: adsk.core.CommandEventArgs):
 
         # Get the field's center point and bottom Z, use bbox center but not transform origin
         field_center = futil.get_bbox_center(field_bbox)
-        field_bottom_z = field_bbox.minPoint.z + TILE_HEIGHT
+        field_bottom_z = field_bbox.minPoint.z + get_tile_height()
 
         # Get the game object's bounding box
         game_object_bbox = futil.get_bbox(game_object)

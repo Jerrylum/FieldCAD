@@ -6,6 +6,7 @@ from ...commands.panel import get_panel_in_design_workspace
 from ...lib import fusionAddInUtils as futil
 from ... import config
 from ...lib.competition import V5RC
+from ...lib.competition import VIQRC
 
 app = adsk.core.Application.get()
 ui = app.userInterface
@@ -18,7 +19,10 @@ IS_PROMOTED = True
 ICON_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "")
 
 # List of game object name prefixes
-GAME_OBJECT_PREFIXES = V5RC.get_all_v5rc_game_object_prefixes()
+GAME_OBJECT_PREFIXES = [
+    *V5RC.get_all_v5rc_game_object_prefixes(),
+    *VIQRC.get_all_viqrc_game_object_prefixes(),
+]
 
 local_handlers = []
 

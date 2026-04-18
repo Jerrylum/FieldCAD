@@ -33,7 +33,11 @@ By using both tools together, teams can:
 
 After installation, the FieldCAD toolbar will appear in the Fusion 360 interface with the following tools:
 
+![FieldCAD Overview](docs/Overview.png)
+
 ### Anchor Game Object
+
+![Anchor Game Object](docs/AnchorGameObject.png)
 
 Secure game objects in place:
 - Select a game object
@@ -43,6 +47,8 @@ Secure game objects in place:
 
 ### Place On Field
 
+![Place On Field](docs/PlaceOnField.png)
+
 Position game objects on the field:
 - Select a game object
 - Choose between center or corner-based coordinates
@@ -51,21 +57,27 @@ Position game objects on the field:
 
 ### Field Appearance
 
+![Field Appearance](docs/FieldAppearance.png)
+
 Apply customizable appearances to field tiles:
 - Set two different colors for a checkerboard pattern
 - Colors are applied automatically to the field tiles in an alternating pattern
 
 ### Inspect Game Object
 
+![Inspect Game Object](docs/InspectGameObject.png)
+
 View detailed information about selected game objects:
 - Display name, bounding box, and other properties
 - Supports unit conversion for coordinates
 
-### Set Camera
+### Set Camera (Render Workspace Only)
+
+![Set Camera](docs/SetCamera.png)
 
 Set the camera to a standard top-down view with specified extents:
-- Extents are automatically set to 192mm for VEX IQ fields
-- Extents are automatically set to 369mm for VEX V5 fields
+- Extents are automatically set to 1920mm for VEX IQ fields
+- Extents are automatically set to 3690mm for VEX V5 fields
 
 ## Integration with PATH.JERRYIO
 

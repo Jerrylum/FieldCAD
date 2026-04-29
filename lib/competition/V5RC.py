@@ -2,15 +2,18 @@ from typing import Optional
 import adsk.core
 import adsk.fusion
 from ...lib import fusionAddInUtils as futil
+from ...lib.competition import V5RC_Override
 from ...lib.competition import V5RC_PushBack
 from ...lib.competition import V5RC_HighStakes
 from ...lib.competition import V5RC_OverUnder
 
 FIELD_PREFIX = "276-7596-000_With Tiles"
+FIELD_PREFIX_OVERRIDE = "276-7596-000_Fixed Version"
 
 
 def get_all_v5rc_game_object_prefixes() -> list[str]:
     return [
+        *V5RC_Override.get_game_object_prefixes(),
         *V5RC_PushBack.get_game_object_prefixes(),
         *V5RC_HighStakes.get_game_object_prefixes(),
         *V5RC_OverUnder.get_game_object_prefixes(),
@@ -21,7 +24,7 @@ def get_v5rc_field(product: adsk.core.Product) -> Optional[adsk.fusion.Occurrenc
     field_occurrence = None
 
     for occurrence in futil.get_all_occurrences(product):
-        if occurrence.name.startswith(FIELD_PREFIX):
+        if occurrence.name.startswith(FIELD_PREFIX) or occurrence.name.startswith(FIELD_PREFIX_OVERRIDE):
             field_occurrence = occurrence
             break
 

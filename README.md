@@ -41,9 +41,7 @@ After installation, the FieldCAD toolbar will appear in the Fusion 360 interface
 
 Secure game objects in place:
 - Select a game object
-- Choose between center or corner-based coordinates
-- Enter X, Y, Z coordinates (supports unit conversion)
-- Option to create a copy or move the original
+- Select an anchor target
 
 ### Place On Field
 

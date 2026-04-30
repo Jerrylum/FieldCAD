@@ -21,6 +21,7 @@ ICON_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resource
 
 
 available_action_types: list[type[AnchorAction]] = [
+    competition.V5RC_Override.ConnectPinAndCup,
     competition.V5RC_HighStakes.EncircleRingToMobileGoal,
 ]
 
